@@ -7,7 +7,7 @@ const StylishSelect = ({ value, onChange, options, className }) => (
     <select 
       value={value} 
       onChange={onChange} 
-      className="w-full bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-indigo-700 dark:text-indigo-400 rounded-lg py-2 pl-4 pr-9 focus:ring-2 focus:ring-indigo-500/50 outline-none appearance-none cursor-pointer text-sm font-bold transition-all hover:bg-white dark:hover:bg-slate-800"
+      className="w-full bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 text-cyan-700 dark:text-cyan-400 rounded-lg py-2 pl-4 pr-9 focus:ring-2 focus:ring-cyan-500/50 outline-none appearance-none cursor-pointer text-sm font-bold transition-all hover:bg-white dark:hover:bg-slate-800"
     >
        {options.map(o => {
          const val = typeof o === 'object' ? o.value : o;
@@ -19,7 +19,7 @@ const StylishSelect = ({ value, onChange, options, className }) => (
          );
        })}
     </select>
-    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-indigo-500/70">
+    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-cyan-500/70">
        <ChevronDown className="w-4 h-4" />
     </div>
   </div>
@@ -139,7 +139,7 @@ export default function AiStudyPlanner() {
           <section className="col-span-12 lg:col-span-4 space-y-8">
             <div className="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-3 mb-6">
-                <HelpCircle className="text-indigo-600 dark:text-indigo-400" />
+                <HelpCircle className="text-cyan-600 dark:text-cyan-400" />
                 <h3 className="font-headline text-xl font-bold text-slate-900 dark:text-slate-50">Parameters</h3>
               </div>
               <div className="space-y-6">
@@ -150,7 +150,7 @@ export default function AiStudyPlanner() {
                        <button 
                          key={idx} 
                          onClick={() => toggleSubject(sub)}
-                         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedSubjects.includes(sub) ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'}`}
+                         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedSubjects.includes(sub) ? 'bg-cyan-600 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'}`}
                        >
                          {sub}
                        </button>
@@ -164,7 +164,7 @@ export default function AiStudyPlanner() {
                               onChange={e => setNewSubText(e.target.value)} 
                               onBlur={submitNewSubject}
                               placeholder="Add topic..." 
-                              className="px-4 py-2 rounded-full text-sm bg-white dark:bg-slate-950 border border-indigo-500 outline-none w-32" 
+                              className="px-4 py-2 rounded-full text-sm bg-white dark:bg-slate-950 border border-cyan-500 outline-none w-32" 
                             />
                         </form>
                     ) : (
@@ -178,31 +178,31 @@ export default function AiStudyPlanner() {
                 <div>
                   <label className="block font-label text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Focus Areas</label>
                   <div className="relative">
-                    <textarea className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-4 text-sm focus:ring-2 focus:ring-indigo-500/20 outline-none text-slate-900 dark:text-slate-50" placeholder="e.g. Thermodynamics, Organic Synthesis" rows="3"></textarea>
+                    <textarea className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-4 text-sm focus:ring-2 focus:ring-cyan-500/20 outline-none text-slate-900 dark:text-slate-50" placeholder="e.g. Thermodynamics, Organic Synthesis" rows="3"></textarea>
                   </div>
                 </div>
 
                 <div>
                   <div className="flex justify-between items-center mb-3">
                     <label className="block font-label text-xs font-bold text-slate-500 uppercase tracking-wider">Daily Study Hours</label>
-                    <span className="text-indigo-600 dark:text-indigo-400 font-bold">6.5 hrs</span>
+                    <span className="text-cyan-600 dark:text-cyan-400 font-bold">6.5 hrs</span>
                   </div>
-                  <input className="w-full h-2 bg-indigo-100 dark:bg-indigo-900/50 rounded-full appearance-none cursor-pointer accent-indigo-600" max="12" min="1" step="0.5" type="range" defaultValue="6.5" aria-label="Study hours"/>
+                  <input className="w-full h-2 bg-cyan-100 dark:bg-cyan-900/50 rounded-full appearance-none cursor-pointer accent-cyan-600" max="12" min="1" step="0.5" type="range" defaultValue="6.5" aria-label="Study hours"/>
                 </div>
 
-                <button onClick={handleGenerate} disabled={loading} className="w-full py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 active:scale-95 transition-all">
+                <button onClick={handleGenerate} disabled={loading} className="w-full py-4 rounded-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/30 hover:shadow-cyan-600/50 active:scale-95 transition-all">
                   <Sparkles className={`text-xl ${loading ? 'animate-spin' : ''}`} />
                   {loading ? 'Processing...' : 'Generate AI Plan'}
                 </button>
               </div>
             </div>
 
-            <div className="bg-slate-900 text-indigo-100 p-8 rounded-lg relative overflow-hidden border border-slate-800">
+            <div className="bg-slate-900 text-cyan-100 p-8 rounded-lg relative overflow-hidden border border-slate-800">
               <div className="relative z-10">
                 <h4 className="font-bold text-lg mb-2 text-white">Did you know?</h4>
-                <p className="text-sm text-indigo-200/80 leading-relaxed">Spaced repetition plans are 40% more effective. Your AI is currently weighting your plan for maximum retention and minimum burnout.</p>
+                <p className="text-sm text-cyan-200/80 leading-relaxed">Spaced repetition plans are 40% more effective. Your AI is currently weighting your plan for maximum retention and minimum burnout.</p>
               </div>
-              <HelpCircle className="absolute -right-4 -bottom-4 text-8xl text-indigo-500/10 rotate-12" />
+              <HelpCircle className="absolute -right-4 -bottom-4 text-8xl text-cyan-500/10 rotate-12" />
             </div>
           </section>
 
@@ -210,7 +210,7 @@ export default function AiStudyPlanner() {
             <div className="bg-white dark:bg-slate-900 rounded-lg p-8 shadow-sm border border-slate-200 dark:border-slate-800 h-full flex flex-col">
               <div className="flex justify-between items-end mb-8">
                 <div>
-                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 rounded-full mb-3 inline-block border border-indigo-100 dark:border-indigo-500/20">Draft Schedule v1.2</span>
+                  <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest bg-cyan-50 dark:bg-cyan-500/10 px-3 py-1 rounded-full mb-3 inline-block border border-cyan-100 dark:border-cyan-500/20">Draft Schedule v1.2</span>
                   <h3 className="font-headline text-3xl font-bold text-slate-900 dark:text-slate-50">Today's Optimized Flow</h3>
                 </div>
               </div>
@@ -226,14 +226,14 @@ export default function AiStudyPlanner() {
                          {editingId === task.id ? (
                            <TimeBlockEditor timeStr={task.time} onChange={(v) => updateTask(task.id, 'time', v)} />
                          ) : (
-                           <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">{task.time}</p>
+                           <p className="text-sm font-bold text-cyan-600 dark:text-cyan-400">{task.time}</p>
                          )}
                       </div>
                       
                       {/* Task Block */}
-                      <div className="col-span-8 p-6 rounded-lg border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-500/5 flex justify-between items-center group relative">
+                      <div className="col-span-8 p-6 rounded-lg border-l-4 border-cyan-500 bg-cyan-50 dark:bg-cyan-500/5 flex justify-between items-center group relative">
                         <div className="flex-1 mr-4">
-                          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1 block">AI Priority Recommendation</span>
+                          <span className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest mb-1 block">AI Priority Recommendation</span>
                           {editingId === task.id ? (
                             <StylishSelect 
                               className="w-full max-w-sm mb-2"
@@ -254,11 +254,11 @@ export default function AiStudyPlanner() {
                         
                         <div className="flex flex-col gap-2">
                           {editingId === task.id ? (
-                            <button onClick={() => setEditingId(null)} className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white hover:bg-indigo-700 shadow-sm cursor-pointer" title="Done">
+                            <button onClick={() => setEditingId(null)} className="w-8 h-8 rounded-full bg-cyan-600 flex items-center justify-center text-white hover:bg-cyan-700 shadow-sm cursor-pointer" title="Done">
                               <Check className="w-4 h-4" />
                             </button>
                           ) : (
-                            <button onClick={() => setEditingId(task.id)} className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer" title="Edit">
+                            <button onClick={() => setEditingId(task.id)} className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer" title="Edit">
                               <Pencil className="w-4 h-4" />
                             </button>
                           )}
@@ -287,8 +287,8 @@ export default function AiStudyPlanner() {
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">3 friends are studying right now.</p>
                 </div>
                 <div className="flex gap-4">
-                  <button className="text-indigo-600 dark:text-indigo-400 font-bold text-sm px-6 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors cursor-pointer">Discard Draft</button>
-                  <button onClick={() => alert("Calendar Sync Triggered! (Demo functionality)")} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-8 py-3 rounded-full shadow-lg shadow-indigo-600/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">Accept &amp; Sync to Calendar</button>
+                  <button className="text-cyan-600 dark:text-cyan-400 font-bold text-sm px-6 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors cursor-pointer">Discard Draft</button>
+                  <button onClick={() => alert("Calendar Sync Triggered! (Demo functionality)")} className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-sm px-8 py-3 rounded-full shadow-lg shadow-cyan-600/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">Accept &amp; Sync to Calendar</button>
                 </div>
               </div>
             </div>

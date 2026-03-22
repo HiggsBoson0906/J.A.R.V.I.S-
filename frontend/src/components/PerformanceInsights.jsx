@@ -25,7 +25,7 @@ export default function PerformanceInsights() {
           </div>
           <div className="flex gap-3">
              <button className="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-6 py-3 rounded-full font-bold text-sm hover:bg-slate-200 transition-colors shadow-sm">Export Report</button>
-             <button className="bg-indigo-600 text-white px-8 py-3 rounded-full font-bold text-sm shadow-md hover:opacity-90 transition-opacity">Generate AI Plan</button>
+             <button className="bg-cyan-600 text-white px-8 py-3 rounded-full font-bold text-sm shadow-md hover:opacity-90 transition-opacity">Generate AI Plan</button>
           </div>
         </header>
 
@@ -38,7 +38,7 @@ export default function PerformanceInsights() {
                 <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Daily deep-work activity mapping</p>
               </div>
               <div className="flex gap-2">
-                 <span className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 px-3 py-1 bg-indigo-50 dark:bg-indigo-900/40 rounded-full"><span className="w-2 h-2 bg-indigo-600 rounded-full"></span> This Week</span>
+                 <span className="flex items-center gap-1.5 text-xs font-semibold text-cyan-600 dark:text-cyan-400 px-3 py-1 bg-cyan-50 dark:bg-cyan-900/40 rounded-full"><span className="w-2 h-2 bg-cyan-600 rounded-full"></span> This Week</span>
                  <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full"><span className="w-2 h-2 bg-slate-300 dark:bg-slate-600 rounded-full"></span> Last Week</span>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function PerformanceInsights() {
                 <line stroke="currentColor" strokeWidth="0.5" x1="10" x2="90" y1="75" y2="25"></line>
                 <polygon fill="rgba(79, 70, 229, 0.2)" points="50,15 85,30 75,70 50,85 15,60 25,30" stroke="#4f46e5" strokeWidth="2"></polygon>
               </svg>
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-bold text-indigo-600 dark:text-indigo-400">MATH</div>
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-bold text-cyan-600 dark:text-cyan-400">MATH</div>
               <div className="absolute top-1/4 -right-10 text-[10px] font-bold text-slate-500">SCIENCE</div>
               <div className="absolute bottom-1/4 -right-8 text-[10px] font-bold text-slate-500">HIST</div>
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-500">ECON</div>
@@ -92,7 +92,7 @@ export default function PerformanceInsights() {
             
             <div className="mt-12 w-full grid grid-cols-2 gap-4">
                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
-                  <p className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-left">Highest</p>
+                  <p className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest text-left">Highest</p>
                   <p className="text-sm font-bold text-slate-900 dark:text-slate-50 text-left">Mathematics</p>
                </div>
                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
@@ -111,7 +111,7 @@ export default function PerformanceInsights() {
                 <h4 className="font-bold text-lg text-slate-900 dark:text-slate-50">Fatigue Alert</h4>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Your accuracy drops significantly after study sessions exceeding 90 minutes.</p>
               </div>
-              <button className="mt-auto text-indigo-600 dark:text-indigo-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer">
+              <button className="mt-auto text-cyan-600 dark:text-cyan-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer">
                 Optimize Schedule <ArrowRight className="w-3 h-3" />
               </button>
             </div>
@@ -124,20 +124,20 @@ export default function PerformanceInsights() {
                 <h4 className="font-bold text-lg text-slate-900 dark:text-slate-50">Peak Morning Focus</h4>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">Data indicates your highest cognitive retention occurs between 8:00 AM - 10:30 AM.</p>
               </div>
-              <button className="mt-auto text-indigo-600 dark:text-indigo-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer">
+              <button className="mt-auto text-cyan-600 dark:text-cyan-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer">
                 Reschedule Tasks <ArrowRight className="w-3 h-3" />
               </button>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-6 rounded-lg flex flex-col gap-4 shadow-sm border border-slate-200 dark:border-slate-800">
-              <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white">
+              <div className="w-12 h-12 bg-cyan-600 rounded-2xl flex items-center justify-center text-white">
                 <Sparkles />
               </div>
               <div>
                 <h4 className="font-bold text-lg text-slate-900 dark:text-slate-50">Knowledge Gap Found</h4>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">"Linear Algebra" concepts are missing in 40% of your physics problems. 3 targeted resources added to your library.</p>
               </div>
-              <button className="mt-auto text-indigo-600 dark:text-indigo-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer">
+              <button className="mt-auto text-cyan-600 dark:text-cyan-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer">
                 Review Materials <ArrowRight className="w-3 h-3" />
               </button>
             </div>
@@ -149,28 +149,28 @@ export default function PerformanceInsights() {
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
                   <span className="text-slate-500">Task Completion Rate</span>
-                  <span className="text-indigo-600 dark:text-indigo-400">{m.time_management ? m.time_management : 84}%</span>
+                  <span className="text-cyan-600 dark:text-cyan-400">{m.time_management ? m.time_management : 84}%</span>
                 </div>
                 <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${m.time_management ? m.time_management : 84}%` }}></div>
+                  <div className="h-full bg-cyan-600 rounded-full" style={{ width: `${m.time_management ? m.time_management : 84}%` }}></div>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
                   <span className="text-slate-500">Recall Accuracy</span>
-                  <span className="text-indigo-600 dark:text-indigo-400">{m.accuracy ? m.accuracy : 91}%</span>
+                  <span className="text-cyan-600 dark:text-cyan-400">{m.accuracy ? m.accuracy : 91}%</span>
                 </div>
                 <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${m.accuracy ? m.accuracy : 91}%` }}></div>
+                  <div className="h-full bg-cyan-600 rounded-full" style={{ width: `${m.accuracy ? m.accuracy : 91}%` }}></div>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
                   <span className="text-slate-500">Study Stamina</span>
-                  <span className="text-indigo-600 dark:text-indigo-400">{m.coverage ? m.coverage : 62}%</span>
+                  <span className="text-cyan-600 dark:text-cyan-400">{m.coverage ? m.coverage : 62}%</span>
                 </div>
                 <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${m.coverage ? m.coverage : 62}%` }}></div>
+                  <div className="h-full bg-cyan-600 rounded-full" style={{ width: `${m.coverage ? m.coverage : 62}%` }}></div>
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function PerformanceInsights() {
           <section className="col-span-12 lg:col-span-5 bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 h-full flex flex-col space-y-4 relative overflow-hidden">
             <h3 className="text-xl font-bold font-headline mb-4 text-slate-900 dark:text-slate-50">Recent Wins</h3>
             <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 z-10">
-              <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center"><HelpCircle className="w-5 h-5" /></div>
+              <div className="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center"><HelpCircle className="w-5 h-5" /></div>
               <div className="flex-1">
                  <p className="text-sm font-bold text-slate-900 dark:text-slate-50">Concept Mastered</p>
                  <p className="text-[10px] text-slate-500">Passed Physics Mock with 95% accuracy</p>
@@ -198,7 +198,7 @@ export default function PerformanceInsights() {
             </div>
             
             <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 z-10">
-              <div className="w-10 h-10 bg-indigo-50 text-indigo-400 rounded-full flex items-center justify-center"><Sparkles className="w-5 h-5" /></div>
+              <div className="w-10 h-10 bg-cyan-50 text-cyan-400 rounded-full flex items-center justify-center"><Sparkles className="w-5 h-5" /></div>
               <div className="flex-1">
                  <p className="text-sm font-bold text-slate-900 dark:text-slate-50">Deep Work Streak</p>
                  <p className="text-[10px] text-slate-500">Completed 4 consecutive 45-min sessions</p>
@@ -214,7 +214,7 @@ export default function PerformanceInsights() {
               </div>
               <span className="text-[10px] text-slate-400">3 days ago</span>
             </div>
-            <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-indigo-600/5 rounded-full blur-3xl z-0"></div>
+            <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-cyan-600/5 rounded-full blur-3xl z-0"></div>
           </section>
         </div>
       </div>

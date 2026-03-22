@@ -63,7 +63,7 @@ export default function Layout({ children }) {
   const NavLinkItem = ({ to, icon, label }) => {
     const active = location.pathname === to;
     return (
-      <Link to={to} className={`flex items-center gap-3 px-4 py-3 font-medium hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded-xl ${active ? 'text-indigo-700 dark:text-indigo-400 font-bold bg-white dark:bg-slate-800 shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}>
+      <Link to={to} className={`flex items-center gap-3 px-4 py-3 font-medium hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors rounded-xl ${active ? 'text-cyan-700 dark:text-cyan-400 font-bold bg-white dark:bg-slate-800 shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}>
         {icon}
         <span className="text-sm font-label">{label}</span>
       </Link>
@@ -72,7 +72,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300 min-h-screen font-body">
-      <aside className="fixed left-0 top-0 h-screen w-64 z-40 bg-indigo-50/50 dark:bg-slate-900 flex flex-col p-4 border-r border-slate-200 dark:border-slate-800">
+      <aside className="fixed left-0 top-0 h-screen w-64 z-40 bg-cyan-50/50 dark:bg-slate-900 flex flex-col p-4 border-r border-slate-200 dark:border-slate-800">
         <div className="mb-10 px-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-slate-900 border border-cyan-400/50 flex items-center justify-center shadow-lg shadow-cyan-500/30 relative overflow-hidden">
@@ -98,7 +98,7 @@ export default function Layout({ children }) {
               </div>
             </div>
             <div>
-              <h1 className="text-2xl font-black tracking-tighter font-headline text-indigo-700 dark:text-slate-200">J.A.R.V.I.S.</h1>
+              <h1 className="text-2xl font-black tracking-tighter font-headline text-cyan-700 dark:text-slate-200">J.A.R.V.I.S.</h1>
               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">AI Study Platform</p>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function Layout({ children }) {
               <p className="text-sm font-bold truncate dark:text-slate-200">Alex Chen</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Pro Plan</p>
             </div>
-            <User className="text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors flex-shrink-0" />
+            <User className="text-slate-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors flex-shrink-0" />
           </div>
         </Link>
       </aside>
@@ -130,7 +130,7 @@ export default function Layout({ children }) {
         <div className="flex items-center gap-4">
           
           {isActive && (
-            <button onClick={() => navigate('/timer')} className="bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse border border-indigo-200 dark:border-indigo-500/30 cursor-pointer shadow-sm">
+            <button onClick={() => navigate('/timer')} className="bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-400 px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse border border-cyan-200 dark:border-cyan-500/30 cursor-pointer shadow-sm">
               <Timer className="w-3 h-3" /> {Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2, '0')}
             </button>
           )}
@@ -153,7 +153,7 @@ export default function Layout({ children }) {
                 <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                   <h3 className="font-bold text-slate-900 dark:text-slate-50 text-sm">Notifications</h3>
                   <div className="flex items-center gap-3">
-                    <button onClick={() => setNotifs(notifs.map(n => ({...n, read: true})))} className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer uppercase tracking-widest">Mark all read</button>
+                    <button onClick={() => setNotifs(notifs.map(n => ({...n, read: true})))} className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer uppercase tracking-widest">Mark all read</button>
                     <button onClick={() => setNotifOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"><X className="w-4 h-4" /></button>
                   </div>
                 </div>
@@ -161,7 +161,7 @@ export default function Layout({ children }) {
                 {/* Notification List */}
                 <div className="max-h-96 overflow-y-auto">
                   {notifs.map(n => (
-                    <div key={n.id} onClick={() => setNotifs(notifs.map(x => x.id === n.id ? {...x, read: true} : x))} className={`flex items-start gap-4 px-5 py-4 cursor-pointer transition-colors border-b border-slate-50 dark:border-slate-800/60 last:border-none ${n.read ? 'bg-white dark:bg-slate-900' : 'bg-indigo-50/60 dark:bg-indigo-500/5 hover:bg-indigo-50 dark:hover:bg-indigo-500/10'}`}>
+                    <div key={n.id} onClick={() => setNotifs(notifs.map(x => x.id === n.id ? {...x, read: true} : x))} className={`flex items-start gap-4 px-5 py-4 cursor-pointer transition-colors border-b border-slate-50 dark:border-slate-800/60 last:border-none ${n.read ? 'bg-white dark:bg-slate-900' : 'bg-cyan-50/60 dark:bg-cyan-500/5 hover:bg-cyan-50 dark:hover:bg-cyan-500/10'}`}>
                       <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-lg flex-shrink-0 border border-slate-200 dark:border-slate-700">{n.icon}</div>
                       <div className="flex-1 min-w-0">
                         <p className={`text-sm font-bold truncate ${n.read ? 'text-slate-600 dark:text-slate-400' : 'text-slate-900 dark:text-slate-100'}`}>{n.title}</p>
@@ -171,20 +171,20 @@ export default function Layout({ children }) {
                           <span className="text-[10px] text-slate-400 font-medium">{n.time}</span>
                         </div>
                       </div>
-                      {!n.read && <span className="w-2 h-2 rounded-full bg-indigo-500 flex-shrink-0 mt-2"></span>}
+                      {!n.read && <span className="w-2 h-2 rounded-full bg-cyan-500 flex-shrink-0 mt-2"></span>}
                     </div>
                   ))}
                 </div>
 
                 {/* Footer */}
                 <div className="px-5 py-3 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
-                  <button className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer w-full text-center">View all activity →</button>
+                  <button className="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer w-full text-center">View all activity →</button>
                 </div>
               </div>
             )}
           </div>
           <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
-          <img alt="User Avatar" className="w-8 h-8 rounded-full cursor-pointer hover:ring-2 ring-indigo-500 transition-all border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTr2lSjNuE4tN0G-ObCMlK1bUjLt73TgkJffJqESR_8P94gTXK08qduVe32ZXqUlySDi3ugqoO7oI5Bk8IVW7fdD8_sBQ9wztJycb5macSYk2z7aZyVjg_ram7xUwCX6VUoy8d-476ca2VITXvkr8ldff6GIWTInGjU6_y-PtcXUqRL90zJUBZZE2Oo0WSDlzmEoFb5_qNf6MG-Sq1sXaAKRmRUgkATabgLp_0SmxZ_5JWm_ItYJX6CaL1j6UwOhmG2-XUQ6no1fwm"/>
+          <img alt="User Avatar" className="w-8 h-8 rounded-full cursor-pointer hover:ring-2 ring-cyan-500 transition-all border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTr2lSjNuE4tN0G-ObCMlK1bUjLt73TgkJffJqESR_8P94gTXK08qduVe32ZXqUlySDi3ugqoO7oI5Bk8IVW7fdD8_sBQ9wztJycb5macSYk2z7aZyVjg_ram7xUwCX6VUoy8d-476ca2VITXvkr8ldff6GIWTInGjU6_y-PtcXUqRL90zJUBZZE2Oo0WSDlzmEoFb5_qNf6MG-Sq1sXaAKRmRUgkATabgLp_0SmxZ_5JWm_ItYJX6CaL1j6UwOhmG2-XUQ6no1fwm"/>
         </div>
       </header>
 
@@ -197,7 +197,7 @@ export default function Layout({ children }) {
         {/* Slide-up Chat Panel */}
         {aiOpen && (
           <div className="w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl shadow-black/20 dark:shadow-black/50 border border-slate-200 dark:border-slate-800 overflow-hidden">
-            <div className="bg-gradient-to-r from-indigo-700 to-slate-900 px-5 py-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-cyan-700 to-slate-900 px-5 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {/* Mini JARVIS HUD */}
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="animate-spin" style={{animationDuration: '8s'}}>
@@ -216,8 +216,8 @@ export default function Layout({ children }) {
             <div className="p-5 min-h-40 max-h-80 overflow-y-auto">
               {aiAnswer ? (
                 <div className="space-y-3">
-                  <div className="bg-indigo-50 dark:bg-indigo-500/10 p-4 rounded-xl border border-indigo-100 dark:border-indigo-500/20">
-                    <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-2">Explanation</p>
+                  <div className="bg-cyan-50 dark:bg-cyan-500/10 p-4 rounded-xl border border-cyan-100 dark:border-cyan-500/20">
+                    <p className="text-[10px] font-bold text-cyan-600 uppercase tracking-widest mb-2">Explanation</p>
                     <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">{aiAnswer.explanation}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
@@ -230,7 +230,7 @@ export default function Layout({ children }) {
                       <p className="text-xs text-slate-700 dark:text-slate-300">{aiAnswer.exam_tip}</p>
                     </div>
                   </div>
-                  <button onClick={() => { setAiAnswer(null); setAiQuestion(''); }} className="text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline cursor-pointer">← Ask another question</button>
+                  <button onClick={() => { setAiAnswer(null); setAiQuestion(''); }} className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer">← Ask another question</button>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-32 text-center">
@@ -246,10 +246,10 @@ export default function Layout({ children }) {
                     type="text" value={aiQuestion} onChange={e => setAiQuestion(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && handleAskDoubt()}
                     placeholder="Ask me anything..."
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-full py-3 pl-4 pr-12 text-sm outline-none focus:border-indigo-500 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-full py-3 pl-4 pr-12 text-sm outline-none focus:border-cyan-500 dark:text-white"
                     disabled={aiAsking}
                   />
-                  <button onClick={handleAskDoubt} disabled={aiAsking} className="absolute right-1 top-1 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 active:scale-95 transition-all cursor-pointer">
+                  <button onClick={handleAskDoubt} disabled={aiAsking} className="absolute right-1 top-1 w-10 h-10 bg-cyan-600 text-white rounded-full flex items-center justify-center hover:bg-cyan-700 active:scale-95 transition-all cursor-pointer">
                     <Send className={`w-4 h-4 ${aiAsking ? 'animate-pulse' : ''}`} />
                   </button>
                 </div>

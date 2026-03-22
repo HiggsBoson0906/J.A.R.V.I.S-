@@ -1,207 +1,194 @@
-import React from 'react'; 
+import React, { useState } from 'react'; 
 import Layout from './Layout';
-import { BarChart2, Bell, BookOpen, Bot, Calendar, CheckCircle, ChevronRight, HelpCircle, Home, Search, Timer } from 'lucide-react';
+import { BarChart2, CheckCircle, ChevronRight, Edit2, Mail, Phone, Save, Target, User, X } from 'lucide-react';
+
+const TARGET_EXAMS = ['JEE', 'NEET', 'UPSC', 'CAT', 'GATE', 'Other'];
 
 export default function ProfileSettings() {
+  const [editing, setEditing] = useState(false);
+  const [profile, setProfile] = useState({
+    name: 'Alex Carter',
+    email: 'alex.c@example.com',
+    phone: '+91 98765 43210',
+    targetExam: 'JEE',
+    bio: 'Passionate about AI ethics and distributed systems. Currently mastering Neural Networks while juggling three core projects.',
+  });
+  const [draft, setDraft] = useState(profile);
+
+  const handleSave = () => {
+    setProfile(draft);
+    setEditing(false);
+  };
+
+  const handleCancel = () => {
+    setDraft(profile);
+    setEditing(false);
+  };
+
+  const Field = ({ icon, label, fieldKey, type = 'text', isSelect }) => (
+    <div className="flex items-start gap-4 p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-100 dark:border-slate-700">
+      <div className="w-9 h-9 rounded-xl bg-cyan-100 dark:bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-0.5">
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">{label}</p>
+        {editing ? (
+          isSelect ? (
+            <select
+              value={draft[fieldKey]}
+              onChange={e => setDraft({ ...draft, [fieldKey]: e.target.value })}
+              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm font-bold text-cyan-600 dark:text-cyan-400 outline-none focus:ring-2 focus:ring-cyan-500/30 cursor-pointer"
+            >
+              {TARGET_EXAMS.map(e => (
+                <option key={e} value={e}>{e}</option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type={type}
+              value={draft[fieldKey]}
+              onChange={e => setDraft({ ...draft, [fieldKey]: e.target.value })}
+              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm font-bold text-slate-900 dark:text-slate-100 outline-none focus:ring-2 focus:ring-cyan-500/30"
+            />
+          )
+        ) : (
+          <p className={`text-sm font-bold ${fieldKey === 'targetExam' ? 'text-cyan-600 dark:text-cyan-400' : 'text-slate-900 dark:text-slate-100'}`}>
+            {profile[fieldKey]}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <Layout>
-      {/*  SideNavBar (Shared Component)  */}
+      <div className="p-8 w-full max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto space-y-8">
 
-{/*  TopNavBar (Shared Component)  */}
+          {/* Header Row */}
+          <div className="grid grid-cols-12 gap-8 items-stretch">
 
-{/*  Main Content Canvas  */}
-<div className="p-8 w-full max-w-7xl mx-auto">
-<div className="max-w-6xl mx-auto space-y-10">
-{/*  Bento Layout Header  */}
-<div className="grid grid-cols-12 gap-8 items-stretch">
-{/*  User Info Card  */}
-<div className="col-span-12 lg:col-span-8 bg-surface-container-lowest p-10 rounded-lg flex flex-col md:flex-row gap-8 items-center md:items-start">
-<div className="relative group">
-<div className="w-32 h-32 rounded-full ring-4 ring-primary-fixed overflow-hidden">
-<img className="w-full h-full object-cover" data-alt="Large detailed user profile portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1qh2-OrycgKHi2zdWbygbOpwaIE2Q99z_4QvySvXGoAL1_FnwORFC-SKfVjR88FOUN8TNyirhQgRebk41ceBKmpu1Vm88zLZJiFV_qfo17nHQWb1j-pGc1KoY-X0RW-0rLqNf-uCFZVy2t2QGXTMrljtbjXG-f4UFumt7H2i_1Av4lLUR3M5VAh-AdpBEHhtTcxnZIN_0wVdPogoClLFMatOLoxN6E1BGj4s6QTu0u73GevcXiGQv_aq8RK88iwVFXwV_a-p-Td1g"/>
-</div>
-<button className="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full hover:scale-110 transition-transform">
-<HelpCircle className="text-sm" />
-</button>
-</div>
-<div className="flex-1 text-center md:text-left">
-<div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-<div>
-<h2 className="text-3xl font-extrabold tracking-tight text-on-surface">Alex Carter</h2>
-<p className="text-primary font-semibold font-label uppercase tracking-widest text-xs mt-1">Graduate Student • Computer Science</p>
-</div>
-<button className="bg-primary text-white px-8 py-3 rounded-full font-bold text-sm hover:opacity-90 transition-all">Edit Profile</button>
-</div>
-<div className="mt-6 space-y-4">
-<p className="text-on-surface-variant leading-relaxed max-w-xl font-body">
-                                Passionate about AI ethics and distributed systems. Currently mastering Neural Networks while juggling three core projects. I believe in deep work and consistent, incremental progress.
-                            </p>
-<div className="flex flex-wrap gap-3">
-<span className="bg-surface-container-high px-4 py-1.5 rounded-full text-xs font-semibold text-on-surface-variant flex items-center gap-2">
-<HelpCircle className="text-sm" /> Stanford, CA
-                                </span>
-<span className="bg-surface-container-high px-4 py-1.5 rounded-full text-xs font-semibold text-on-surface-variant flex items-center gap-2">
-<HelpCircle className="text-sm" /> alex.c@stanford.edu
-                                </span>
-</div>
-</div>
-</div>
-</div>
-{/*  Stats Quick View  */}
-<div className="col-span-12 lg:col-span-4 bg-primary text-on-primary p-10 rounded-lg flex flex-col justify-between">
-<div>
-<h3 className="text-lg font-bold opacity-80 font-headline">Academic Rank</h3>
-<p className="text-4xl font-black mt-2">Elite Learner</p>
-</div>
-<div className="space-y-6 mt-8">
-<div>
-<div className="flex justify-between text-sm font-bold mb-2">
-<span>Current Streak</span>
-<span>14 Days</span>
-</div>
-<div className="h-2 w-full bg-white/20 rounded-full overflow-hidden">
-<div className="h-full bg-white w-3/4 rounded-full"></div>
-</div>
-</div>
-<div className="flex items-center gap-4">
-<div className="bg-white/10 p-3 rounded-xl">
-<HelpCircle className="text-2xl" />
-</div>
-<span className="text-sm font-medium">Top 5% of active students this month</span>
-</div>
-</div>
-</div>
-</div>
-{/*  Dashboard Sections Grid  */}
-<div className="grid grid-cols-12 gap-8">
-{/*  Performance Stats  */}
-<div className="col-span-12 lg:col-span-7 space-y-8">
-<h3 className="text-xl font-bold px-2">Learning Analytics</h3>
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-{/*  Total Study Hours  */}
-<div className="bg-surface-container-low p-8 rounded-lg">
-<div className="flex items-center justify-between mb-4">
-<HelpCircle className="text-primary text-3xl" />
-<span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full">+12% this week</span>
-</div>
-<p className="text-sm font-medium text-on-surface-variant uppercase tracking-tighter">Total Study Time</p>
-<h4 className="text-4xl font-black text-on-surface mt-1">428.5 <span className="text-lg font-normal text-on-surface-variant">hrs</span></h4>
-</div>
-{/*  Completed Sessions  */}
-<div className="bg-surface-container-low p-8 rounded-lg">
-<div className="flex items-center justify-between mb-4">
-<CheckCircle className="text-primary text-3xl" />
-<span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full">98% Success</span>
-</div>
-<p className="text-sm font-medium text-on-surface-variant uppercase tracking-tighter">Sessions Completed</p>
-<h4 className="text-4xl font-black text-on-surface mt-1">1,240 <span className="text-lg font-normal text-on-surface-variant">Total</span></h4>
-</div>
-</div>
-{/*  Focus Trend (Visual Representation)  */}
-<div className="bg-surface-container-lowest p-8 rounded-lg">
-<div className="flex items-center justify-between mb-8">
-<h4 className="font-bold">Focus Distribution</h4>
-<select className="bg-surface-container-high border-none rounded-md text-xs font-bold focus:ring-0">
-<option>Last 30 Days</option>
-<option>Last 7 Days</option>
-</select>
-</div>
-<div className="flex items-end justify-between h-48 gap-4 px-2">
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[40%] rounded-t-xl group relative">
-<div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">Mon</div>
-</div>
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[65%] rounded-t-xl group relative"></div>
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[85%] rounded-t-xl group relative"></div>
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[45%] rounded-t-xl group relative"></div>
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[95%] rounded-t-xl group relative"></div>
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[60%] rounded-t-xl group relative"></div>
-<div className="w-full bg-primary-fixed hover:bg-primary transition-colors h-[75%] rounded-t-xl group relative"></div>
-</div>
-</div>
-</div>
-{/*  Settings & Preferences  */}
-<div className="col-span-12 lg:col-span-5 space-y-8">
-<h3 className="text-xl font-bold px-2">System Preferences</h3>
-<div className="bg-surface-container-lowest rounded-lg divide-y divide-surface-container-high">
-{/*  Dark Mode Toggle  */}
-<div className="p-6 flex items-center justify-between">
-<div className="flex items-center gap-4">
-<div className="bg-surface-container-high p-3 rounded-full">
-<HelpCircle className="text-on-surface-variant" />
-</div>
-<div>
-<p className="font-bold text-sm">Midnight Interface</p>
-<p className="text-xs text-on-surface-variant">Switch to high-contrast dark theme</p>
-</div>
-</div>
-<div className="w-12 h-6 bg-surface-container-highest rounded-full p-1 cursor-pointer">
-<div className="w-4 h-4 bg-on-surface-variant rounded-full"></div>
-</div>
-</div>
-{/*  Notifications  */}
-<div className="p-6 flex items-center justify-between">
-<div className="flex items-center gap-4">
-<div className="bg-surface-container-high p-3 rounded-full">
-<HelpCircle className="text-on-surface-variant" />
-</div>
-<div>
-<p className="font-bold text-sm">Focus Reminders</p>
-<p className="text-xs text-on-surface-variant">Get pinged when it's time to study</p>
-</div>
-</div>
-<div className="w-12 h-6 bg-primary rounded-full p-1 cursor-pointer relative">
-<div className="w-4 h-4 bg-white rounded-full absolute right-1"></div>
-</div>
-</div>
-{/*  AI Assistant  */}
-<div className="p-6 flex items-center justify-between">
-<div className="flex items-center gap-4">
-<div className="bg-surface-container-high p-3 rounded-full">
-<HelpCircle className="text-on-surface-variant" />
-</div>
-<div>
-<p className="font-bold text-sm">Adaptive Difficulty</p>
-<p className="text-xs text-on-surface-variant">AI tunes session length to focus levels</p>
-</div>
-</div>
-<div className="w-12 h-6 bg-primary rounded-full p-1 cursor-pointer relative">
-<div className="w-4 h-4 bg-white rounded-full absolute right-1"></div>
-</div>
-</div>
-{/*  Security  */}
-<div className="p-6 flex items-center justify-between group cursor-pointer hover:bg-surface-container-low transition-colors rounded-b-lg">
-<div className="flex items-center gap-4">
-<div className="bg-surface-container-high p-3 rounded-full">
-<HelpCircle className="text-on-surface-variant" />
-</div>
-<div>
-<p className="font-bold text-sm">Privacy &amp; Security</p>
-<p className="text-xs text-on-surface-variant">Manage your data and cloud sync</p>
-</div>
-</div>
-<ChevronRight className="text-on-surface-variant group-hover:translate-x-1 transition-transform" />
-</div>
-</div>
-{/*  Subscription/Storage  */}
-<div className="bg-secondary-container p-8 rounded-lg">
-<div className="flex justify-between items-start mb-6">
-<div>
-<h4 className="font-black text-on-secondary-container text-lg">Knowledge Cloud</h4>
-<p className="text-sm font-medium opacity-80">8.2 GB of 20 GB used</p>
-</div>
-<HelpCircle className="text-on-secondary-container" />
-</div>
-<div className="h-3 w-full bg-white/30 rounded-full overflow-hidden mb-6">
-<div className="h-full bg-primary w-[41%] rounded-full"></div>
-</div>
-<button className="w-full bg-white text-on-surface font-bold py-3 rounded-full text-sm hover:bg-opacity-90 transition-all">Upgrade Storage</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-{/*  Floating AI Chatbot Button  */}
+            {/* User Info Card */}
+            <div className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 p-10 rounded-xl flex flex-col md:flex-row gap-8 items-center md:items-start shadow-sm border border-slate-200 dark:border-slate-800">
+              <div className="relative group flex-shrink-0">
+                <div className="w-28 h-28 rounded-2xl ring-4 ring-cyan-500/30 overflow-hidden shadow-lg">
+                  <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1qh2-OrycgKHi2zdWbygbOpwaIE2Q99z_4QvySvXGoAL1_FnwORFC-SKfVjR88FOUN8TNyirhQgRebk41ceBKmpu1Vm88zLZJiFV_qfo17nHQWb1j-pGc1KoY-X0RW-0rLqNf-uCFZVy2t2QGXTMrljtbjXG-f4UFumt7H2i_1Av4lLUR3M5VAh-AdpBEHhtTcxnZIN_0wVdPogoClLFMatOLoxN6E1BGj4s6QTu0u73GevcXiGQv_aq8RK88iwVFXwV_a-p-Td1g" alt="Avatar"/>
+                </div>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 font-headline">{profile.name}</h2>
+                    <p className="text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-widest text-xs mt-1.5">
+                      {profile.targetExam} Aspirant
+                    </p>
+                  </div>
+                  {!editing ? (
+                    <button onClick={() => setEditing(true)} className="inline-flex items-center gap-2 bg-cyan-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-cyan-700 active:scale-95 transition-all shadow-md shadow-cyan-600/20 cursor-pointer">
+                      <Edit2 className="w-4 h-4" /> Edit Profile
+                    </button>
+                  ) : (
+                    <div className="flex gap-2">
+                      <button onClick={handleSave} className="inline-flex items-center gap-2 bg-cyan-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-cyan-700 transition-all cursor-pointer shadow-md">
+                        <Save className="w-4 h-4" /> Save
+                      </button>
+                      <button onClick={handleCancel} className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-full font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer">
+                        <X className="w-4 h-4" /> Cancel
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 leading-relaxed max-w-lg">{profile.bio}</p>
+              </div>
+            </div>
 
+            {/* Stats Card */}
+            <div className="col-span-12 lg:col-span-4 bg-gradient-to-br from-cyan-600 to-cyan-800 text-white p-8 rounded-xl flex flex-col justify-between shadow-lg shadow-cyan-600/20">
+              <div>
+                <h3 className="text-sm font-bold opacity-70 uppercase tracking-widest">Academic Rank</h3>
+                <p className="text-3xl font-black mt-1 font-headline">Elite Learner</p>
+              </div>
+              <div className="space-y-5 mt-8">
+                <div>
+                  <div className="flex justify-between text-sm font-bold mb-2">
+                    <span>Current Streak</span><span>14 Days</span>
+                  </div>
+                  <div className="h-2 w-full bg-white/20 rounded-full overflow-hidden">
+                    <div className="h-full bg-white w-3/4 rounded-full"></div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-white/10 p-3 rounded-xl">
+                  <BarChart2 className="w-5 h-5 opacity-80" />
+                  <span className="text-xs font-semibold opacity-90">Top 5% of active students this month</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Grid */}
+          <div className="grid grid-cols-12 gap-8">
+
+            {/* Editable Details Card */}
+            <div className="col-span-12 lg:col-span-5">
+              <div className="bg-white dark:bg-slate-900 rounded-xl p-7 shadow-sm border border-slate-200 dark:border-slate-800 h-full">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-bold font-headline text-slate-900 dark:text-slate-50">Personal Details</h3>
+                  {editing && <span className="text-[10px] text-cyan-500 font-bold uppercase tracking-widest bg-cyan-50 dark:bg-cyan-500/10 px-2 py-1 rounded-full">Editing</span>}
+                </div>
+                <div className="space-y-3">
+                  <Field icon={<User className="w-4 h-4"/>} label="Full Name" fieldKey="name" />
+                  <Field icon={<Mail className="w-4 h-4"/>} label="Email Address" fieldKey="email" type="email" />
+                  <Field icon={<Phone className="w-4 h-4"/>} label="Phone Number" fieldKey="phone" type="tel" />
+                  <Field icon={<Target className="w-4 h-4"/>} label="Target Exam" fieldKey="targetExam" isSelect />
+                </div>
+              </div>
+            </div>
+
+            {/* Learning Analytics */}
+            <div className="col-span-12 lg:col-span-7 space-y-6">
+              <h3 className="text-lg font-bold font-headline text-slate-900 dark:text-slate-50">Learning Analytics</h3>
+              <div className="grid grid-cols-2 gap-5">
+                <div className="bg-white dark:bg-slate-900 p-7 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+                  <div className="flex items-center justify-between mb-3">
+                    <BarChart2 className="text-cyan-600 dark:text-cyan-400 w-7 h-7" />
+                    <span className="text-[10px] font-bold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-100 dark:border-emerald-500/20">+12% this week</span>
+                  </div>
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Study Time</p>
+                  <h4 className="text-3xl font-black text-slate-900 dark:text-slate-50 mt-1">428.5 <span className="text-base font-normal text-slate-400">hrs</span></h4>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-7 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+                  <div className="flex items-center justify-between mb-3">
+                    <CheckCircle className="text-cyan-600 dark:text-cyan-400 w-7 h-7" />
+                    <span className="text-[10px] font-bold bg-cyan-50 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-2.5 py-1 rounded-full border border-cyan-100 dark:border-cyan-500/20">98% Success</span>
+                  </div>
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Sessions Completed</p>
+                  <h4 className="text-3xl font-black text-slate-900 dark:text-slate-50 mt-1">1,240 <span className="text-base font-normal text-slate-400">total</span></h4>
+                </div>
+              </div>
+
+              {/* Focus Distribution */}
+              <div className="bg-white dark:bg-slate-900 p-7 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between mb-6">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-50">Focus Distribution</h4>
+                  <select className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold px-3 py-1.5 text-slate-700 dark:text-slate-300 outline-none cursor-pointer">
+                    <option>Last 30 Days</option>
+                    <option>Last 7 Days</option>
+                  </select>
+                </div>
+                <div className="flex items-end justify-between h-36 gap-3">
+                  {[40, 65, 85, 45, 95, 60, 75].map((h, i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                      <div className="w-full bg-cyan-100 dark:bg-cyan-900/40 hover:bg-cyan-500 dark:hover:bg-cyan-600 transition-colors rounded-t-lg cursor-pointer" style={{ height: `${h}%` }}></div>
+                      <span className="text-[9px] font-bold text-slate-400">{['M','T','W','T','F','S','S'][i]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }
