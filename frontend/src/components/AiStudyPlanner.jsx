@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import Layout from './Layout';
-import { HelpCircle, MoreVertical, Plus, Sparkles, X, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, HelpCircle, MoreVertical, Pencil, Plus, Sparkles, X } from 'lucide-react';
 
 const StylishSelect = ({ value, onChange, options, className }) => (
   <div className={`relative ${className}`}>
@@ -52,6 +52,7 @@ const TimeBlockEditor = ({ timeStr, onChange }) => {
 export default function AiStudyPlanner() {
   const [plannerTasks, setPlannerTasks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   
   // Custom Subject Selection
   const [availableSubjects, setAvailableSubjects] = useState(['Mathematics', 'Physics', 'Chemistry']);
@@ -219,30 +220,49 @@ export default function AiStudyPlanner() {
                   plannerTasks.map((task, idx) => (
                     <div key={task.id} className="grid grid-cols-12 gap-4">
                       
-                      {/* Interactive Time Selection Component */}
+                      {/* Time Block */}
                       <div className="col-span-4 flex flex-col justify-center items-start pl-6 pr-4 py-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800 relative shadow-inner">
                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Time Block</span>
-                         <TimeBlockEditor timeStr={task.time} onChange={(v) => updateTask(task.id, 'time', v)} />
+                         {editingId === task.id ? (
+                           <TimeBlockEditor timeStr={task.time} onChange={(v) => updateTask(task.id, 'time', v)} />
+                         ) : (
+                           <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">{task.time}</p>
+                         )}
                       </div>
                       
+                      {/* Task Block */}
                       <div className="col-span-8 p-6 rounded-lg border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-500/5 flex justify-between items-center group relative">
                         <div className="flex-1 mr-4">
-                          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1 block pl-2">AI Priority Recommendation</span>
-                          <StylishSelect 
-                            className="w-full max-w-sm mb-2"
-                            value={task.task} 
-                            onChange={(e) => updateTask(task.id, 'task', e.target.value)}
-                            options={[
-                                {value: task.task, label: task.task},
-                                ...availableSubjects.map(sub => ({value: `Focus: ${sub}`, label: `Focus: ${sub}`})),
-                                "Self-Directed Review", 
-                                "Mock Exam Session"
-                            ]}
-                          />
-                          <p className="text-sm text-slate-500 dark:text-slate-400 pl-2 mt-2">Time boxed session configured dynamically.</p>
+                          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1 block">AI Priority Recommendation</span>
+                          {editingId === task.id ? (
+                            <StylishSelect 
+                              className="w-full max-w-sm mb-2"
+                              value={task.task} 
+                              onChange={(e) => updateTask(task.id, 'task', e.target.value)}
+                              options={[
+                                  {value: task.task, label: task.task},
+                                  ...availableSubjects.map(sub => ({value: `Focus: ${sub}`, label: `Focus: ${sub}`})),
+                                  {value: 'Self-Directed Review', label: 'Self-Directed Review'}, 
+                                  {value: 'Mock Exam Session', label: 'Mock Exam Session'}
+                              ]}
+                            />
+                          ) : (
+                            <h4 className="text-lg font-bold text-slate-900 dark:text-slate-200 mb-1">{task.task}</h4>
+                          )}
+                          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Time boxed session configured dynamically.</p>
                         </div>
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => deleteTask(task.id)} className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        
+                        <div className="flex flex-col gap-2">
+                          {editingId === task.id ? (
+                            <button onClick={() => setEditingId(null)} className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white hover:bg-indigo-700 shadow-sm cursor-pointer" title="Done">
+                              <Check className="w-4 h-4" />
+                            </button>
+                          ) : (
+                            <button onClick={() => setEditingId(task.id)} className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer" title="Edit">
+                              <Pencil className="w-4 h-4" />
+                            </button>
+                          )}
+                          <button onClick={() => deleteTask(task.id)} className="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer" title="Delete">
                              <X className="w-4 h-4" />
                           </button>
                         </div>

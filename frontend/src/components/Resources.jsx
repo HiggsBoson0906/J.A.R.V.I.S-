@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'; 
 import Layout from './Layout';
-import { BookOpen, ChevronRight, HelpCircle, Play, Send, Sparkles } from 'lucide-react';
+import { BookOpen, ChevronRight, ExternalLink, Play, Sparkles } from 'lucide-react';
+
+const EXTERNAL_COURSES = [
+  { name: 'Physics Wallah', short: 'PW', url: 'https://pw.live', color: 'bg-orange-500', desc: 'India\'s fastest growing ed-tech' },
+  { name: 'Vedantu', short: 'V', url: 'https://vedantu.com', color: 'bg-indigo-500', desc: 'Live interactive classes' },
+  { name: 'Unacademy', short: 'U', url: 'https://unacademy.com', color: 'bg-green-500', desc: 'Structured prep courses' },
+  { name: 'Khan Academy', short: 'K', url: 'https://khanacademy.org', color: 'bg-sky-500', desc: 'Free world-class education' },
+];
 
 export default function Resources() {
   const tabs = ["Thermodynamics", "Calculus", "Organic Chemistry"];
   const [topic, setTopic] = useState(tabs[0]);
   const [resource, setResource] = useState(null);
-  
-  const [doubtQuestion, setDoubtQuestion] = useState('');
-  const [doubtAnswer, setDoubtAnswer] = useState(null);
-  const [asking, setAsking] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/resources?topic=${topic}`)
@@ -18,33 +21,41 @@ export default function Resources() {
       .catch(e => console.error(e));
   }, [topic]);
 
-  const handleAskDoubt = async () => {
-    if (!doubtQuestion) return;
-    setAsking(true);
-    try {
-      const res = await fetch('http://localhost:3001/api/ask-doubt', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: doubtQuestion })
-      });
-      const d = await res.json();
-      if (d.success) setDoubtAnswer(d.data);
-    } catch(e) {
-      alert("Error contacting JARVIS: " + e.message);
-    }
-    setAsking(false);
-  };
-
   return (
     <Layout>
-      <div className="p-8 w-full max-w-7xl mx-auto">
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-10 rounded-lg text-white flex justify-between items-center overflow-hidden relative shadow-lg shadow-indigo-600/20">
+      <div className="p-8 w-full max-w-7xl mx-auto space-y-12">
+
+        {/* External Courses */}
+        <section>
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h2 className="text-2xl font-extrabold font-headline text-slate-900 dark:text-slate-50">External Courses</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Jump into top platforms directly from JARVIS</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {EXTERNAL_COURSES.map((c, i) => (
+              <a key={i} href={c.url} target="_blank" rel="noopener noreferrer"
+                className="group bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex items-center gap-4 cursor-pointer">
+                <div className={`${c.color} w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-lg flex-shrink-0 shadow-md group-hover:scale-110 transition-transform`}>{c.short}</div>
+                <div className="min-w-0">
+                  <p className="font-bold text-slate-900 dark:text-slate-50 text-sm truncate">{c.name}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">{c.desc}</p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 transition-colors ml-auto flex-shrink-0" />
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* Hero Banner */}
+        <section>
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-10 rounded-xl text-white flex justify-between items-center overflow-hidden relative shadow-lg shadow-indigo-600/20">
             <div className="relative z-10 max-w-xl">
               <span className="text-xs font-bold bg-white/20 px-3 py-1 rounded-full backdrop-blur-md uppercase tracking-widest border border-white/10">Personalized Selection</span>
               <h2 className="text-4xl font-headline font-extrabold mt-4 mb-3 tracking-tight">Curated Learning Path</h2>
               <p className="text-indigo-100 text-lg font-medium leading-relaxed">
-                {resource ? resource.reason : "Analyzing your recent attempts to gather the most impactful content for your study journey."}
+                {resource ? resource.reason : "Analyzing your recent attempts to surface the most impactful content for your journey."}
               </p>
             </div>
             <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white/5 skew-x-12 translate-x-10 pointer-events-none"></div>
@@ -52,119 +63,108 @@ export default function Resources() {
           </div>
         </section>
 
-        <div className="flex gap-4 mb-8 overflow-x-auto no-scrollbar pb-2">
+        {/* Topic Tabs */}
+        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
           {tabs.map((t, idx) => (
             <button 
-              key={idx}
-              onClick={() => setTopic(t)}
-              className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all border ${topic === t ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-600/20' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-            >
-              {t}
-            </button>
+              key={idx} onClick={() => setTopic(t)}
+              className={`px-6 py-2.5 rounded-full font-bold text-sm transition-all border whitespace-nowrap ${topic === t ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-600/20' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+            >{t}</button>
           ))}
         </div>
 
+        {/* Main Grid */}
         <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 rounded-lg overflow-hidden group shadow-sm border border-slate-200 dark:border-slate-800">
-            <div className="relative h-[400px]">
-              <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Dynamic universe and nebula background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL2exYmic32YRw8ON8QuA9wukIhvao97M9R49YF9h8B_2QFX7rIZjYjC0zY2FzodgEPv3x9sKbTjoGll9-jFRrKFx6oRUdYKA3-KuR8NyItVeRXjhVpebli9zm40wJOfEsVuTsV83ywZMM97ogI6C5OjFWlOB-n4A9zrh6Viu2xRVrUoo68v5s9ipsqpXgGd36VR5tTCue8Chfetg7ZQSUcMD89-Mo8vcZohZG_bfooKFr8afcYzZ6zU8cfv6E9fEKWFARUnS_T0BY"/>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-8">
+          
+          {/* Featured Video Card */}
+          <div className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 rounded-xl overflow-hidden group shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="relative h-[380px]">
+              <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL2exYmic32YRw8ON8QuA9wukIhvao97M9R49YF9h8B_2QFX7rIZjYjC0zY2FzodgEPv3x9sKbTjoGll9-jFRrKFx6oRUdYKA3-KuR8NyItVeRXjhVpebli9zm40wJOfEsVuTsV83ywZMM97ogI6C5OjFWlOB-n4A9zrh6Viu2xRVrUoo68v5s9ipsqpXgGd36VR5tTCue8Chfetg7ZQSUcMD89-Mo8vcZohZG_bfooKFr8afcYzZ6zU8cfv6E9fEKWFARUnS_T0BY" alt="Topic visual"/>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent flex flex-col justify-end p-8">
                 <div className="flex gap-3 mb-4">
-                  <span className="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm uppercase">Recommended Format</span>
-                  <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-sm uppercase">Video Resource</span>
+                  <span className="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Recommended</span>
+                  <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Video</span>
                 </div>
-                <h3 className="text-white text-3xl font-headline font-bold mb-2">{topic} Visualized</h3>
-                <p className="text-slate-300 max-w-lg mb-6 truncate">{resource ? resource.video_link : "Fetching video URI..."}</p>
-                <div className="mt-2 flex items-center gap-4">
-                  <button className="bg-white text-indigo-900 px-6 py-3 rounded-full font-bold flex items-center gap-2 transition-transform active:scale-95 hover:bg-slate-100">
-                    <Play className="w-4 h-4" fill="currentColor" /> Watch Recommended Video
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-span-12 lg:col-span-4 flex flex-col gap-6">
-            <div className="bg-white dark:bg-slate-900 p-6 flex flex-col rounded-lg flex-1 shadow-sm border border-slate-200 dark:border-slate-800">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-6 flex items-center gap-2">
-                <Sparkles className="text-indigo-600 w-4 h-4" /> JARVIS Doubt Solver
-              </h4>
-              
-              <div className="flex-1 overflow-y-auto mb-4 space-y-4">
-                 {doubtAnswer ? (
-                   <div className="space-y-4">
-                     <div className="bg-indigo-50 dark:bg-indigo-500/10 p-4 rounded-xl border border-indigo-100 dark:border-indigo-500/20">
-                       <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-2">Explanation</p>
-                       <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed">{doubtAnswer.explanation}</p>
-                     </div>
-                     <div className="flex gap-4">
-                       <div className="bg-emerald-50 dark:bg-emerald-500/10 p-4 rounded-xl border border-emerald-100 dark:border-emerald-500/20 flex-1">
-                         <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Hint</p>
-                         <p className="text-xs text-slate-700 dark:text-slate-300">{doubtAnswer.hint}</p>
-                       </div>
-                       <div className="bg-amber-50 dark:bg-amber-500/10 p-4 rounded-xl border border-amber-100 dark:border-amber-500/20 flex-1">
-                         <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-1">Exam Tip</p>
-                         <p className="text-xs text-slate-700 dark:text-slate-300">{doubtAnswer.exam_tip}</p>
-                       </div>
-                     </div>
-                   </div>
-                 ) : (
-                   <div className="h-full flex flex-col items-center justify-center text-center px-4">
-                     <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4 text-slate-400">
-                        <BookOpen className="w-8 h-8" />
-                     </div>
-                     <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Stuck on a problem?</p>
-                     <p className="text-xs text-slate-500 mt-2">Ask JARVIS for step-by-step explanations, hints, and exam tricks backed by generative AI.</p>
-                   </div>
-                 )}
-              </div>
-
-              <div className="relative mt-auto">
-                <input 
-                  type="text" 
-                  value={doubtQuestion}
-                  onChange={(e) => setDoubtQuestion(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleAskDoubt()}
-                  placeholder="Paste your question here..." 
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-500 text-slate-900 dark:text-white"
-                  disabled={asking}
-                />
-                <button 
-                  onClick={handleAskDoubt}
-                  disabled={asking}
-                  className="absolute right-1 top-1 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 active:scale-95 transition-all outline-none"
-                >
-                  <Send className={`w-4 h-4 ${asking ? 'animate-pulse' : ''}`} />
+                <h3 className="text-white text-3xl font-headline font-bold mb-2">{topic} — Deep Dive</h3>
+                <p className="text-slate-300 truncate max-w-lg mb-6">{resource ? resource.video_link : "Fetching resource..."}</p>
+                <button className="inline-flex items-center gap-2 bg-white text-indigo-900 px-6 py-3 rounded-full font-bold text-sm hover:bg-slate-100 active:scale-95 transition-all w-fit shadow-sm">
+                  <Play className="w-4 h-4" fill="currentColor" /> Watch Recommended
                 </button>
               </div>
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-white dark:bg-slate-900 p-8 rounded-lg shadow-sm border border-slate-200 dark:border-slate-800">
-            <div className="flex justify-between items-start mb-8">
-              <HelpCircle className="text-indigo-600 dark:text-indigo-400 text-3xl" />
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Textbook Reference</span>
+          {/* Right Sidebar: Focus Area + Quick Practice */}
+          <div className="col-span-12 lg:col-span-4 flex flex-col gap-5">
+
+            {/* Focus Area Card — matches the screenshot */}
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+              <div className="bg-red-500 px-5 py-3 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-white/30 flex items-center justify-center text-xs font-black text-white">!</span>
+                <span className="text-xs font-bold text-white uppercase tracking-widest">Focus Area</span>
+              </div>
+              <div className="p-5">
+                <h4 className="text-lg font-extrabold font-headline text-slate-900 dark:text-slate-50 mb-1">Struggling with {topic}?</h4>
+                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                  You've missed 4 practice questions related to <span className="font-bold text-slate-700 dark:text-slate-300">this topic</span> this week.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">Core Concepts</span>
+                  <span className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">Problem Solving</span>
+                </div>
+              </div>
             </div>
-            <h4 className="text-lg font-headline font-bold mb-2 text-slate-900 dark:text-slate-50">Standard Literature</h4>
-            <p className="text-xs text-slate-500 mb-6 italic">{resource ? resource.book_ref : "Loading..."}</p>
-            <button className="w-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 py-3 rounded-full font-bold text-sm transition-colors cursor-pointer border border-slate-200 dark:border-slate-700">Open Library View</button>
+
+            {/* Quick Practice Card — matches the screenshot */}
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-5 flex-1">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-5">Quick Practice</h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors border border-slate-100 dark:border-slate-700">
+                  <div className="w-11 h-11 rounded-xl bg-indigo-100 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                    <BookOpen className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-bold text-slate-900 dark:text-slate-100">10-Min Quiz</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{topic} Equations</p>
+                  </div>
+                  <ChevronRight className="text-slate-400 w-5 h-5" />
+                </div>
+                <div className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors border border-slate-100 dark:border-slate-700">
+                  <div className="w-11 h-11 rounded-xl bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 flex-shrink-0">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-bold text-slate-900 dark:text-slate-100">Concept Sketch</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Infinite Wells</p>
+                  </div>
+                  <ChevronRight className="text-slate-400 w-5 h-5" />
+                </div>
+              </div>
+            </div>
+
+            {/* Textbook Reference */}
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-5">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Textbook Reference</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-slate-50 mb-1 italic">{resource ? resource.book_ref : "Loading..."}</p>
+              <button className="mt-3 w-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-2.5 rounded-lg font-bold text-xs transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer">Open Library View</button>
+            </div>
           </div>
 
-          <div className="col-span-12 md:col-span-6 lg:col-span-8 bg-indigo-600 text-white p-8 rounded-lg relative overflow-hidden flex flex-col shadow-lg shadow-indigo-600/20">
+          {/* Practice Module Full-width Banner */}
+          <div className="col-span-12 bg-indigo-600 text-white p-8 rounded-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-indigo-600/20">
             <div className="relative z-10">
-              <h4 className="text-2xl font-headline font-extrabold mb-4 leading-tight">Interactive Practice Material</h4>
-              <p className="text-indigo-100 text-sm mb-8 leading-relaxed max-w-lg">
-                Your assigned practice for this topic is: <span className="font-bold underline">{resource ? resource.practice : "Loading..."}</span>. Completing this will incrementally increase your accuracy mastery.
+              <h4 className="text-2xl font-headline font-extrabold mb-2 leading-tight">Interactive Practice: {topic}</h4>
+              <p className="text-indigo-100 text-sm leading-relaxed max-w-lg">
+                Your assigned practice module for this topic: <span className="font-bold underline">{resource ? resource.practice : "Loading..."}</span>
               </p>
-              <button className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-indigo-700 px-8 py-3 rounded-full font-bold text-sm transition-all active:scale-95 cursor-pointer shadow-sm">
-                 Begin Practice Module
-                 <ChevronRight className="w-4 h-4" />
-              </button>
             </div>
-            <BookOpen className="text-[120px] opacity-10 absolute -right-4 -bottom-4 rotate-12" />
+            <button className="z-10 inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-indigo-700 px-8 py-3 rounded-full font-bold text-sm transition-all active:scale-95 shadow-sm whitespace-nowrap">
+              Begin Practice Module <ChevronRight className="w-4 h-4" />
+            </button>
+            <BookOpen className="text-[140px] opacity-10 absolute -right-6 -bottom-6 rotate-12" />
           </div>
-        </div>
 
+        </div>
       </div>
     </Layout>
   );
